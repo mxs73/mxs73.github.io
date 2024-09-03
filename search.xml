@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>test</title>
+    <title>Test</title>
     <url>/2024/09/03/test/</url>
     <content><![CDATA[<h3 id="English"><a href="#English" class="headerlink" title="English"></a>English</h3><p>this is a test</p>
 <h3 id="中文"><a href="#中文" class="headerlink" title="中文"></a>中文</h3><p>这是一个测试</p>
@@ -14,13 +14,13 @@
 
 
 
-<h3 id="数学公式"><a href="#数学公式" class="headerlink" title="数学公式"></a>数学公式</h3><p>$$<br>f(x)&#x3D;\frac{(x+1)^n}{e^x}<br>$$</p>
+<h3 id="数学公式"><a href="#数学公式" class="headerlink" title="数学公式"></a>数学公式</h3><p>$$<br>\bbox[yellow]{<br>    e^x&#x3D;\lim_{n\to\infty} \left( 1+\frac{x}{n} \right)^n \qquad (1)<br>}<br>$$</p>
 <h3 id="readmore"><a href="#readmore" class="headerlink" title="readmore"></a>readmore</h3><span id="more"></span>
 
 <p>read more</p>
 ]]></content>
       <categories>
-        <category>others</category>
+        <category>other</category>
       </categories>
       <tags>
         <tag>test</tag>
