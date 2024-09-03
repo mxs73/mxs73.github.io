@@ -7,7 +7,7 @@
 <h3 id="中文"><a href="#中文" class="headerlink" title="中文"></a>中文</h3><p>这是一个测试</p>
 <h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;this is a test!\n&quot;</span>);</span><br></pre></td></tr></table></figure>
 <h3 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h3><p><a href="https://hexo.io/">hexo</a></p>
-<h3 id="图片"><a href="#图片" class="headerlink" title="图片"></a>图片</h3><p><img src="./../assets/background.png" style="zoom: 33%;" /></p>
+<h3 id="图片"><a href="#图片" class="headerlink" title="图片"></a>图片</h3><p><img src="../assets/卡比兽.png" alt="卡比兽"></p>
 <h3 id="数学公式"><a href="#数学公式" class="headerlink" title="数学公式"></a>数学公式</h3><script type="math/tex; mode=display">
 \bbox[yellow]{
     e^x=\lim_{n\to\infty} \left( 1+\frac{x}{n} \right)^n \qquad (1)
