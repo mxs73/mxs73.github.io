@@ -1,23 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Test</title>
-    <url>/posts/784dd132/</url>
+    <title>markdownTest</title>
+    <url>/posts/308bc09b/</url>
     <content><![CDATA[<p>一般在本地用markdown语法编写文章，然后再上传，所以有必要进行测试，确保不同markdown的不同功能在网页上的到渲染并展示</p>
 <h3 id="readmore"><a href="#readmore" class="headerlink" title="readmore"></a>readmore</h3><p>设置文章展开功能</p>
 <span id="more"></span>
 <h3 id="中英文支持"><a href="#中英文支持" class="headerlink" title="中英文支持"></a>中英文支持</h3><p>this is  a test</p>
 <p>这是一个测试</p>
 <h3 id="代码高亮与复制"><a href="#代码高亮与复制" class="headerlink" title="代码高亮与复制"></a>代码高亮与复制</h3><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;this is a test!\n&quot;</span>);</span><br></pre></td></tr></table></figure>
-<h3 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h3><p><a href="https://hexo.io/">hexo</a></p>
-<h3 id="图片展示"><a href="#图片展示" class="headerlink" title="图片展示"></a>图片展示</h3><p>现在图片数量不多，直接上传到github上，后续会考虑搭载图床</p>
-<p><img src="/assets/other/卡比兽.png" alt="卡比兽"></p>
-<h3 id="数学公式"><a href="#数学公式" class="headerlink" title="数学公式"></a>数学公式</h3><script type="math/tex; mode=display">
+<h3 id="数学公式"><a href="#数学公式" class="headerlink" title="数学公式"></a>数学公式</h3><p>在需要使用公式的文章<code>title</code>添加<code>mathjax: true</code>，优化性能</p>
+<script type="math/tex; mode=display">
 \bbox[yellow]{
     e^x=\lim_{n\to\infty} \left( 1+\frac{x}{n} \right)^n \qquad (1)
-}</script>]]></content>
+}</script><h3 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h3><p><a href="https://hexo.io/">hexo</a></p>
+<h3 id="图片展示"><a href="#图片展示" class="headerlink" title="图片展示"></a>图片展示</h3><p>现在图片数量不多，直接上传到github上，后续会考虑搭载图床</p>
+<p><img src="/assets/other/卡比兽.png" alt="卡比兽"></p>
+]]></content>
       <categories>
-        <category>hexo</category>
+        <category>Hexo</category>
       </categories>
       <tags>
         <tag>test</tag>
