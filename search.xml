@@ -194,10 +194,10 @@
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">gcc a.c -o a.exe</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
-        <category>C语言</category>
+        <category>语法基础</category>
       </categories>
       <tags>
-        <tag>语言基础</tag>
+        <tag>C语言基础</tag>
       </tags>
   </entry>
 </search>
