@@ -1,0 +1,1361 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="语言基础," />
+
+
+
+
+
+
+
+
+
+<meta name="description" content="C语言是绝大多数人计算机学习接触的第一门计算机语言，也是最接近底层的高级语言。 学好C语言可以为编程学习打下坚实的基础。 本文内容包括：  认识C语言 编译环境的搭建 hello world 程序编译过程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C基础_入门">
+<meta property="og:url" content="http://example.com/posts/59f9c032/index.html">
+<meta property="og:site_name" content="minifun32">
+<meta property="og:description" content="C语言是绝大多数人计算机学习接触的第一门计算机语言，也是最接近底层的高级语言。 学好C语言可以为编程学习打下坚实的基础。 本文内容包括：  认识C语言 编译环境的搭建 hello world 程序编译过程">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/assets/C_Basics/ming_download.png">
+<meta property="article:published_time" content="2024-09-04T10:29:27.000Z">
+<meta property="article:modified_time" content="2024-09-04T10:29:27.000Z">
+<meta property="article:author" content="minifun32">
+<meta property="article:tag" content="语言基础">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/assets/C_Basics/ming_download.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://example.com/posts/59f9c032/"/>
+
+
+
+
+
+  <title>C基础_入门 | minifun32</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">minifun32</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Minimalism, fun and code</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/59f9c032/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="minifun32">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">C基础_入门</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2024-09-04T18:29:27+08:00">
+                2024-09-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/C%E8%AF%AD%E8%A8%80/" itemprop="url" rel="index">
+                    <span itemprop="name">C语言</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>C语言是绝大多数人计算机学习接触的第一门计算机语言，也是最接近底层的高级语言。</p>
+<p>学好C语言可以为编程学习打下坚实的基础。</p>
+<p>本文内容包括：</p>
+<ul>
+<li>认识C语言</li>
+<li>编译环境的搭建</li>
+<li><code>hello world</code></li>
+<li>程序编译过程</li>
+</ul>
+<span id="more"></span>
+<h3 id="1、认识C语言"><a href="#1、认识C语言" class="headerlink" title="1、认识C语言"></a>1、认识C语言</h3><h4 id="1-1-什么是C语言"><a href="#1-1-什么是C语言" class="headerlink" title="1.1 什么是C语言"></a>1.1 <strong>什么是C语言</strong></h4><p>语言是交流的工具，C语言则是人和计算机进行交互的工具。</p>
+<p>计算机进行操作时是通过变换存储的“0”、“1”实现的，这种“0”、“1”组成的语言叫做<strong>机器语言</strong>，最直接反应计算机的运算过程，但数据过于庞大，交互效率很低。</p>
+<p>把重复的一些机器语言组合起来，形成<strong>指令集</strong>，这样一个指令集就可以代表一大串机器语言，这种指令集叫做组合语言，或者是汇编语言。利用组译器（Assembler）把汇编语言转换为计算机认识的机器语言。</p>
+<p>汇编语言是各种指令的集合，在实际使用时，很难读懂各个指令之间的联系和逻辑。这个时候就发明了<strong>高级语言</strong>，高级语言接近我们日常使用的语言，通过语法规范形成计算机可以解读的语言。通过编译器（Compiler）把高级语言转换为汇编语言。</p>
+<p>C语言就是一种高级语言。</p>
+<h4 id="1-2-C与Unix"><a href="#1-2-C与Unix" class="headerlink" title="1.2 C与Unix"></a>1.2 C与Unix</h4><p>人物：<strong>Dinnish Ritch</strong>          <strong>Ken Thempson</strong></p>
+<p>两人均在CAT&amp;T的Bell实验室工作，ken Thempson用汇编编写了一个游戏<code>Space Travel</code></p>
+<p>但当时在每台设备上安装这个游戏都需要进行专门的调试，为了解决这个问题，ken Thempson编写了一个简单的操作系统，也就是<code>Unix</code>的雏形。</p>
+<p>后来，ken Thempson和Dennis Ritchie基于<code>BCPL</code>开发了一种名为B语言的程序设计语言，用于开发<code>Unix</code>工具。</p>
+<p>Dinnish Ritch对B语言进行优化，开发出了C语言。随后，<code>Unix</code>的大部分代码被重写为C语言，这使得Unix更加模块化，易于移植到不同的硬件平台上,C语言也随着Unix的火爆一起流传。</p>
+<h4 id="1-3-语言特色"><a href="#1-3-语言特色" class="headerlink" title="1.3 语言特色"></a>1.3 语言特色</h4><p>C语言并不是唯一的高级语言，相比于其他语言，C语言的特点是什么。</p>
+<p><strong>优点</strong></p>
+<ul>
+<li>设计特性：C语言是面向过程的语言，它的设计理念让用户能轻松的完成自顶向下的规划、结构化编程和模块化设计</li>
+<li>高效性：C语言具有汇编语言才有的微调控制能力，可以处理底层的活动</li>
+<li>可移植性：UNIX系统把C编译器作为软件包的一部分，很多系统继承UNIX也加入了C编译器</li>
+<li>强大而灵活：能实现很多功能，很多语言的编译器甚至是C语言写的</li>
+<li>面向程序员：给使用者权限更大，比如访问硬件、控制操作内存中的位</li>
+</ul>
+<p><strong>缺点</strong></p>
+<ul>
+<li>解读难度较大</li>
+</ul>
+<p><strong>补充</strong></p>
+<p>可以通过查看<code>tiobe</code>指数查看各种语言在it行业的使用占比</p>
+<h4 id="1-4-应用范围"><a href="#1-4-应用范围" class="headerlink" title="1.4 应用范围"></a><strong>1.4 应用范围</strong></h4><p>C语言的应用范围非常广泛，包括但不限于以下几个方面：</p>
+<ol>
+<li><p><strong>系统编程</strong>：C语言最初是为了编写UNIX操作系统而设计的，因此非常适合于系统级别的编程，如设备驱动、内核模块、系统管理工具等。</p>
+</li>
+<li><p><strong>嵌入式系统</strong>：C语言的高效性和对底层硬件的直接访问能力使其成为开发嵌入式系统的首选语言，如微控制器程序、物联网(IoT)设备、汽车电子控制单元(ECU)等。</p>
+</li>
+<li><p><strong>游戏开发</strong>：虽然现代游戏引擎可能更多地使用C++，但C语言在游戏开发中仍然有其一席之地，尤其是在性能敏感的部分，如图形渲染、物理模拟等。</p>
+</li>
+<li><p><strong>软件开发</strong>：许多大型软件项目，尤其是那些对性能要求极高的应用程序，都大量使用C语言，如数据库管理系统、编译器、解释器、网络服务器等。</p>
+</li>
+<li><p><strong>图形和多媒体</strong>：虽然现在有各种高级的图形库和框架，但在底层图形处理和多媒体应用中，C语言仍然是不可或缺的，例如音频和视频编码/解码库。</p>
+</li>
+<li><p><strong>教育和学习</strong>：C语言是学习编程和计算机科学原理的基础，许多计算机科学课程都将其作为入门语言教授，因为它帮助学生理解内存管理、指针、数据结构等核心概念。</p>
+</li>
+<li><p><strong>科学计算和工程</strong>：在需要高性能数值计算的领域，如物理学、化学、生物学、经济学等，C语言被广泛用于开发科学计算软件和工程仿真模型。</p>
+</li>
+<li><p><strong>安全和加密</strong>：C语言在开发安全相关的软件，如密码学库、防火墙、入侵检测系统等方面有广泛应用。</p>
+</li>
+<li><p><strong>实时系统</strong>：C语言在实时系统中非常有用，因为它提供了对时间的精确控制，这对于航空、航天、军事和其他需要严格时间响应的领域至关重要。</p>
+</li>
+</ol>
+<p>总之，C语言因其高效、灵活和强大而成为众多领域的首选编程语言，几乎在所有的计算机平台和应用领域都有它的身影。</p>
+<h4 id="1-5-C语言标准"><a href="#1-5-C语言标准" class="headerlink" title="1.5 C语言标准"></a><strong>1.5 C语言标准</strong></h4><p>制定统一标准是为了让C语言代码在不同机器中都能执行，如果一个厂商一个标准就很难实现可移植性。</p>
+<ol>
+<li><p>1972年C语⾔在⻉尔实验室诞⽣. 丹尼斯·⾥奇 参考B语⾔开发.</p>
+</li>
+<li><p>1970-80年代，C语⾔被⼴泛应⽤，产⽣很多不同的C语⾔版本. 程序可移植性⽐较差.</p>
+</li>
+<li><p>1983年，美国国家标准委员会(ANSI) 成⽴⼀个⼩组来制定C语⾔的标准. C语⾔⽀持哪些语法、⽀持哪些功能<br>等等.</p>
+</li>
+<li><p>1989年，通过了C语⾔的第⼀个标准. C89标准.</p>
+</li>
+<li><p>1990年，国际标准化组织(ISO) 和 国际电⼯委员会(IEC) 将 C89标准当做国际的C语⾔标准. C90标准. C89和<br>C90指的是同⼀个标准</p>
+</li>
+<li><p>1994年 ISO和 IEC 对 C89标准进⾏修订. C94标准. 由于并没有增加新的语法特性，还是叫做 C89或者C90.</p>
+</li>
+<li><p>1995年 ISO和IEC再次做了修正，C95 标准.</p>
+</li>
+<li><p>1999年 ISO 和 IEC 发布了C语⾔新标准. C语⾔第⼆个标准. 在该标准中，新增许多实⽤的C语⾔语法特性. 增<br>加新的关键字、可变⻓数组等等. <strong>C99标准</strong></p>
+</li>
+<li><p>2007年，重新修订了C语⾔.</p>
+</li>
+<li><p>2011年， 发布新的版本。新增了⼀些语法，泛型、国际化⽀持. ⽬前为⽌最新版本是 <strong>C11.</strong></p>
+<p>目前（2024）最常用的标准是C99标准</p>
+</li>
+</ol>
+<h3 id="2、搭建编译环境"><a href="#2、搭建编译环境" class="headerlink" title="2、搭建编译环境"></a>2、搭建编译环境</h3><h4 id="2-1-linux"><a href="#2-1-linux" class="headerlink" title="2.1 linux"></a><strong>2.1 linux</strong></h4><p>推荐在linux中学习C语言</p>
+<p>   1、插件安装</p>
+<p>C/C++ Extension Pack   (C/C++扩展包，下载直接安装，它包含了 vscode 编写 C/C++ 工程需要的插件（C/C++、C/C++ Themes、CMake、CMake Tools和Better C++ Syntax等）)</p>
+<p>Chinese (Simplified) (简体中文) Language</p>
+<p>2、Code Runner</p>
+<h4 id="2-2-windows"><a href="#2-2-windows" class="headerlink" title="2.2 windows"></a><strong>2.2 windows</strong></h4><p>参考文章：<a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_62721576/article/details/127207028">https://blog.csdn.net/m0_62721576/article/details/127207028</a></p>
+<p>一般使用visual studio这个IDE进行程序编写</p>
+<p>这里试着用visual studio code学习C语言，因为用这个轻量级的软件可以方便学习算法，写语法demo。如果要构架工程文件的话还是在visual studio中进行</p>
+<p>1、安装MING</p>
+<p><a target="_blank" rel="noopener" href="https://nuwen.net/mingw.html">https://nuwen.net/mingw.html</a></p>
+<p>下载exe文件</p>
+<p><img src="/assets/C_Basics/ming_download.png" alt="ming_download"></p>
+<p>安装MING到英文路径中,中文路径可能会出现问题</p>
+<p>2、把MING的bin文文件夹路径添加到环境变量PATH中</p>
+<p>在CMD中测试是否配置成功</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">g++ --version</span><br></pre></td></tr></table></figure>
+<p>3、安装VScode插件</p>
+<ul>
+<li>C/C++ microsoft</li>
+<li>C/C++ Extension Pack</li>
+<li>C++ Themes</li>
+</ul>
+<p>4、json（附加）</p>
+<p>如果没有正确生成json文件，可以参考一面配置手动修改json文件</p>
+<p><code>c_cpp_properties.json</code></p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;configurations&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">    <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Win64&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;includePath&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;$&#123;workspaceFolder&#125;/**&quot;</span><span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;defines&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;_DEBUG&quot;</span><span class="punctuation">,</span> <span class="string">&quot;UNICODE&quot;</span><span class="punctuation">,</span> <span class="string">&quot;_UNICODE&quot;</span><span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;windowsSdkVersion&quot;</span><span class="punctuation">:</span> <span class="string">&quot;10.0.18362.0&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;compilerPath&quot;</span><span class="punctuation">:</span> <span class="string">&quot;C:/MinGW/bin/g++.exe&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;cStandard&quot;</span><span class="punctuation">:</span> <span class="string">&quot;c17&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;cppStandard&quot;</span><span class="punctuation">:</span> <span class="string">&quot;c++17&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;intelliSenseMode&quot;</span><span class="punctuation">:</span> <span class="string">&quot;gcc-x64&quot;</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;version&quot;</span><span class="punctuation">:</span> <span class="number">4</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+<p><code>launch.json</code></p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;version&quot;</span><span class="punctuation">:</span> <span class="string">&quot;0.2.0&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;configurations&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">    <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;(gdb) Launch&quot;</span><span class="punctuation">,</span> </span><br><span class="line">      <span class="attr">&quot;type&quot;</span><span class="punctuation">:</span> <span class="string">&quot;cppdbg&quot;</span><span class="punctuation">,</span> </span><br><span class="line">      <span class="attr">&quot;request&quot;</span><span class="punctuation">:</span> <span class="string">&quot;launch&quot;</span><span class="punctuation">,</span> </span><br><span class="line">      <span class="attr">&quot;program&quot;</span><span class="punctuation">:</span> <span class="string">&quot;$&#123;fileDirname&#125;\\$&#123;fileBasenameNoExtension&#125;.exe&quot;</span><span class="punctuation">,</span> </span><br><span class="line">      <span class="attr">&quot;args&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="punctuation">]</span><span class="punctuation">,</span> </span><br><span class="line">      <span class="attr">&quot;stopAtEntry&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">false</span></span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;cwd&quot;</span><span class="punctuation">:</span> <span class="string">&quot;$&#123;workspaceRoot&#125;&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;environment&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;externalConsole&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span> </span><br><span class="line">      <span class="attr">&quot;MIMode&quot;</span><span class="punctuation">:</span> <span class="string">&quot;gdb&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;miDebuggerPath&quot;</span><span class="punctuation">:</span> <span class="string">&quot;C:\\MinGW\\bin\\gdb.exe&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;preLaunchTask&quot;</span><span class="punctuation">:</span> <span class="string">&quot;g++&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;setupCommands&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">        <span class="punctuation">&#123;</span></span><br><span class="line">          <span class="attr">&quot;description&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Enable pretty-printing for gdb&quot;</span><span class="punctuation">,</span></span><br><span class="line">          <span class="attr">&quot;text&quot;</span><span class="punctuation">:</span> <span class="string">&quot;-enable-pretty-printing&quot;</span><span class="punctuation">,</span></span><br><span class="line">          <span class="attr">&quot;ignoreFailures&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span></span><br><span class="line">        <span class="punctuation">&#125;</span></span><br><span class="line">      <span class="punctuation">]</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">]</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+<p><code>settings.json</code></p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;files.associations&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;*.py&quot;</span><span class="punctuation">:</span> <span class="string">&quot;python&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;iostream&quot;</span><span class="punctuation">:</span> <span class="string">&quot;cpp&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;*.tcc&quot;</span><span class="punctuation">:</span> <span class="string">&quot;cpp&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;string&quot;</span><span class="punctuation">:</span> <span class="string">&quot;cpp&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;unordered_map&quot;</span><span class="punctuation">:</span> <span class="string">&quot;cpp&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;vector&quot;</span><span class="punctuation">:</span> <span class="string">&quot;cpp&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;ostream&quot;</span><span class="punctuation">:</span> <span class="string">&quot;cpp&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;new&quot;</span><span class="punctuation">:</span> <span class="string">&quot;cpp&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;typeinfo&quot;</span><span class="punctuation">:</span> <span class="string">&quot;cpp&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;deque&quot;</span><span class="punctuation">:</span> <span class="string">&quot;cpp&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;initializer_list&quot;</span><span class="punctuation">:</span> <span class="string">&quot;cpp&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;iosfwd&quot;</span><span class="punctuation">:</span> <span class="string">&quot;cpp&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;fstream&quot;</span><span class="punctuation">:</span> <span class="string">&quot;cpp&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;sstream&quot;</span><span class="punctuation">:</span> <span class="string">&quot;cpp&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;map&quot;</span><span class="punctuation">:</span> <span class="string">&quot;c&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;stdio.h&quot;</span><span class="punctuation">:</span> <span class="string">&quot;c&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;algorithm&quot;</span><span class="punctuation">:</span> <span class="string">&quot;cpp&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;atomic&quot;</span><span class="punctuation">:</span> <span class="string">&quot;cpp&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;bit&quot;</span><span class="punctuation">:</span> <span class="string">&quot;cpp&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;cctype&quot;</span><span class="punctuation">:</span> <span class="string">&quot;cpp&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;clocale&quot;</span><span class="punctuation">:</span> <span class="string">&quot;cpp&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;cmath&quot;</span><span class="punctuation">:</span> <span class="string">&quot;cpp&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;compare&quot;</span><span class="punctuation">:</span> <span class="string">&quot;cpp&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;concepts&quot;</span><span class="punctuation">:</span> <span class="string">&quot;cpp&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;cstddef&quot;</span><span class="punctuation">:</span> <span class="string">&quot;cpp&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;cstdint&quot;</span><span class="punctuation">:</span> <span class="string">&quot;cpp&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;cstdio&quot;</span><span class="punctuation">:</span> <span class="string">&quot;cpp&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;cstdlib&quot;</span><span class="punctuation">:</span> <span class="string">&quot;cpp&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;cstring&quot;</span><span class="punctuation">:</span> <span class="string">&quot;cpp&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;ctime&quot;</span><span class="punctuation">:</span> <span class="string">&quot;cpp&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;cwchar&quot;</span><span class="punctuation">:</span> <span class="string">&quot;cpp&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;exception&quot;</span><span class="punctuation">:</span> <span class="string">&quot;cpp&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;ios&quot;</span><span class="punctuation">:</span> <span class="string">&quot;cpp&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;istream&quot;</span><span class="punctuation">:</span> <span class="string">&quot;cpp&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;iterator&quot;</span><span class="punctuation">:</span> <span class="string">&quot;cpp&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;limits&quot;</span><span class="punctuation">:</span> <span class="string">&quot;cpp&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;memory&quot;</span><span class="punctuation">:</span> <span class="string">&quot;cpp&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;random&quot;</span><span class="punctuation">:</span> <span class="string">&quot;cpp&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;set&quot;</span><span class="punctuation">:</span> <span class="string">&quot;cpp&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;stack&quot;</span><span class="punctuation">:</span> <span class="string">&quot;cpp&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;stdexcept&quot;</span><span class="punctuation">:</span> <span class="string">&quot;cpp&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;streambuf&quot;</span><span class="punctuation">:</span> <span class="string">&quot;cpp&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;system_error&quot;</span><span class="punctuation">:</span> <span class="string">&quot;cpp&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;tuple&quot;</span><span class="punctuation">:</span> <span class="string">&quot;cpp&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;type_traits&quot;</span><span class="punctuation">:</span> <span class="string">&quot;cpp&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;utility&quot;</span><span class="punctuation">:</span> <span class="string">&quot;cpp&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;xfacet&quot;</span><span class="punctuation">:</span> <span class="string">&quot;cpp&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;xiosbase&quot;</span><span class="punctuation">:</span> <span class="string">&quot;cpp&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;xlocale&quot;</span><span class="punctuation">:</span> <span class="string">&quot;cpp&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;xlocinfo&quot;</span><span class="punctuation">:</span> <span class="string">&quot;cpp&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;xlocnum&quot;</span><span class="punctuation">:</span> <span class="string">&quot;cpp&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;xmemory&quot;</span><span class="punctuation">:</span> <span class="string">&quot;cpp&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;xstddef&quot;</span><span class="punctuation">:</span> <span class="string">&quot;cpp&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;xstring&quot;</span><span class="punctuation">:</span> <span class="string">&quot;cpp&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;xtr1common&quot;</span><span class="punctuation">:</span> <span class="string">&quot;cpp&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;xtree&quot;</span><span class="punctuation">:</span> <span class="string">&quot;cpp&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;xutility&quot;</span><span class="punctuation">:</span> <span class="string">&quot;cpp&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;stdlib.h&quot;</span><span class="punctuation">:</span> <span class="string">&quot;c&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;string.h&quot;</span><span class="punctuation">:</span> <span class="string">&quot;c&quot;</span></span><br><span class="line">  <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;editor.suggest.snippetsPreventQuickSuggestions&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">false</span></span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;aiXcoder.showTrayIcon&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+<p><code>tasks.json</code></p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;version&quot;</span><span class="punctuation">:</span> <span class="string">&quot;2.0.0&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;tasks&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">    <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;label&quot;</span><span class="punctuation">:</span> <span class="string">&quot;g++&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;command&quot;</span><span class="punctuation">:</span> <span class="string">&quot;g++&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;args&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">        <span class="string">&quot;-g&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="string">&quot;$&#123;file&#125;&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="string">&quot;-o&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="string">&quot;$&#123;fileDirname&#125;/$&#123;fileBasenameNoExtension&#125;.exe&quot;</span></span><br><span class="line">      <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;problemMatcher&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;owner&quot;</span><span class="punctuation">:</span> <span class="string">&quot;cpp&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;fileLocation&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;relative&quot;</span><span class="punctuation">,</span> <span class="string">&quot;$&#123;workspaceRoot&#125;&quot;</span><span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;pattern&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">          <span class="attr">&quot;regexp&quot;</span><span class="punctuation">:</span> <span class="string">&quot;^(.*):(\\d+):(\\d+):\\s+(warning|error):\\s+(.*)$&quot;</span><span class="punctuation">,</span></span><br><span class="line">          <span class="attr">&quot;file&quot;</span><span class="punctuation">:</span> <span class="number">1</span><span class="punctuation">,</span></span><br><span class="line">          <span class="attr">&quot;line&quot;</span><span class="punctuation">:</span> <span class="number">2</span><span class="punctuation">,</span></span><br><span class="line">          <span class="attr">&quot;column&quot;</span><span class="punctuation">:</span> <span class="number">3</span><span class="punctuation">,</span></span><br><span class="line">          <span class="attr">&quot;severity&quot;</span><span class="punctuation">:</span> <span class="number">4</span><span class="punctuation">,</span></span><br><span class="line">          <span class="attr">&quot;message&quot;</span><span class="punctuation">:</span> <span class="number">5</span></span><br><span class="line">        <span class="punctuation">&#125;</span></span><br><span class="line">      <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;group&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;kind&quot;</span><span class="punctuation">:</span> <span class="string">&quot;build&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;isDefault&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span></span><br><span class="line">      <span class="punctuation">&#125;</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line">  <span class="punctuation">]</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+<p>5、在设置里打开run in terminal</p>
+<h3 id="3、hello-world"><a href="#3、hello-world" class="headerlink" title="3、hello world"></a>3、<code>hello world</code></h3><p>在屏幕上输出<code>hello world</code>是一个最简单的C语言程序</p>
+<p>C语言示例：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">void</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;hello world\n&quot;</span>);<span class="comment">//第一个C语言程序</span></span><br><span class="line">    system(<span class="string">&quot;pause&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;<span class="comment">//0一般是状态码</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>1、头文件</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdio.h&gt;</span></span></span><br></pre></td></tr></table></figure>
+<p><code>#</code>这是预处理符，这个符号的作用是把头文件展开</p>
+<p><code>include&lt;stdio.h&gt;</code>意为stdio.h这个标准输入输出头文件包含在这个程序中，在编译时头文件被展开</p>
+<p>2、函数</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">void</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;hello world\n&quot;</span>);</span><br><span class="line">    system(<span class="string">&quot;pause&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>函数可以理解为工具，放在仓库里，而stdio.h就可以理解为仓库，如果找不到仓库就没有办法使用工具。</p>
+<p>有些工具是常用的，不放在库里，比如main函数和system函数。而printf函数是stdio.h库中的工具，所以要加入到头文件中。</p>
+<p>函数有标准的格式</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;数据类型&gt; 函数名 (参数)&#123;</span><br><span class="line">函数主体</span><br><span class="line"><span class="keyword">return</span> &lt;返回值&gt;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>3、main函数</p>
+<p>main函数要特殊注意，main函数在C语言程序只有一个，并且程序是从main函数开始执行，到main函数返回返回值结束。</p>
+<p>4、注释</p>
+<p>注释在预处理阶段会被删除，注释是方便阅读和修改代码写的，平时写注释时一定要有自己的一套注释规范，节约开发时间</p>
+<p><code>//</code>行注释，注释从<code>//</code>开始的一行</p>
+<p><code>/*</code>&lt;内容&gt;<code>*/</code>内容被注释</p>
+<h3 id="4、程序编译过程"><a href="#4、程序编译过程" class="headerlink" title="4、程序编译过程"></a>4、程序编译过程</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">vim a.c#写一个hello world</span><br><span class="line">gcc -E a.c -o a.i#预处理</span><br><span class="line">gcc -S a.i -o a.s#编译，生成a.s汇编文件</span><br><span class="line">gcc -c a.s -o a.o#汇编，生成a.o(obj)目标文件</span><br><span class="line">gcc a.o -o a.exe#链接，生成可执行文件a.exe</span><br><span class="line">./a.exe#执行程序</span><br></pre></td></tr></table></figure>
+<ol>
+<li><strong>使用编辑器编写源代码</strong> (<code>vim a.c</code>)</li>
+<li><strong>预处理</strong> (<code>gcc -E a.c -o a.i</code>)<ul>
+<li>在预处理阶段，GCC（GNU Compiler Collection）中的预处理器会读取你的源代码文件<code>a.c</code>，处理其中的所有预处理器指令，做头文件展开。</li>
+<li><code>#define</code>定义宏定义展开。</li>
+<li>经过预处理后，会生成一个名为<code>a.i</code>的文件。</li>
+</ul>
+</li>
+<li><strong>编译</strong> (<code>gcc -S a.i -o a.s</code>)<ul>
+<li>编译阶段，GCC的C编译器会读取预处理后的源代码<code>a.i</code>，将其转换成汇编代码。</li>
+<li>结果会保存在<code>a.s</code>文件中，这是程序的汇编语言版本。</li>
+</ul>
+</li>
+<li><strong>汇编</strong> (<code>gcc -c a.s -o a.o</code>)<ul>
+<li>汇编阶段，GCC的汇编器将<code>a.s</code>文件中的汇编代码转换成机器语言，生成一个目标文件<code>a.o</code>。</li>
+<li>目标文件是一个二进制文件，包含了可以被链接器使用的机器语言指令和数据。</li>
+</ul>
+</li>
+<li><strong>链接</strong> (<code>gcc a.o -o a.exe</code>) <ul>
+<li>链接阶段，GCC的链接器会将一个或多个目标文件以及可能需要的库文件链接在一起，生成最终的可执行文件<code>a.exe</code>。</li>
+<li>链接器负责解决程序中未解析的符号引用，确保所有的函数和数据都有正确的地址。</li>
+</ul>
+</li>
+<li><strong>执行程序</strong> (<code>./a.exe</code>)<ul>
+<li>最后，你可以通过运行<code>a.exe</code>来执行你的程序。操作系统会加载这个可执行文件到内存中，设置好环境，并启动程序的执行。</li>
+<li>在window中一般使用<code>.\a.exe</code></li>
+</ul>
+</li>
+</ol>
+<p>也可以全部一步编译，以上只是方理解每一步的编译过程</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gcc a.c -o a.exe</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/" rel="tag"># 语言基础</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/posts/308bc09b/" rel="next" title="markdownTest">
+                <i class="fa fa-chevron-left"></i> markdownTest
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81%E8%AE%A4%E8%AF%86C%E8%AF%AD%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">1、认识C语言</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-%E4%BB%80%E4%B9%88%E6%98%AFC%E8%AF%AD%E8%A8%80"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 什么是C语言</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-C%E4%B8%8EUnix"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 C与Unix</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-3-%E8%AF%AD%E8%A8%80%E7%89%B9%E8%89%B2"><span class="nav-number">1.3.</span> <span class="nav-text">1.3 语言特色</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-4-%E5%BA%94%E7%94%A8%E8%8C%83%E5%9B%B4"><span class="nav-number">1.4.</span> <span class="nav-text">1.4 应用范围</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-5-C%E8%AF%AD%E8%A8%80%E6%A0%87%E5%87%86"><span class="nav-number">1.5.</span> <span class="nav-text">1.5 C语言标准</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81%E6%90%AD%E5%BB%BA%E7%BC%96%E8%AF%91%E7%8E%AF%E5%A2%83"><span class="nav-number">2.</span> <span class="nav-text">2、搭建编译环境</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-linux"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 linux</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-windows"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 windows</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3%E3%80%81hello-world"><span class="nav-number">3.</span> <span class="nav-text">3、hello world</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4%E3%80%81%E7%A8%8B%E5%BA%8F%E7%BC%96%E8%AF%91%E8%BF%87%E7%A8%8B"><span class="nav-number">4.</span> <span class="nav-text">4、程序编译过程</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+      
+
+  <div class="links-of-blogroll motion-element links-of-blogroll-block">
+    <div class="links-of-blogroll-title">
+      <!-- modify icon to fire by szw -->
+      <i class="fa fa-history fa-" aria-hidden="true"></i>
+      近期文章
+    </div>
+    <ul class="links-of-blogroll-list">
+      
+      
+        <li class="recent_posts_li">
+          <a href="/posts/59f9c032/" title="C基础_入门" target="_blank">C基础_入门</a>
+        </li>
+      
+        <li class="recent_posts_li">
+          <a href="/posts/308bc09b/" title="markdownTest" target="_blank">markdownTest</a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+
+<script type="text/javascript" charset="utf-8" src="/js/tagcloud.js"></script>
+<script type="text/javascript" charset="utf-8" src="/js/tagcanvas.js"></script>
+<div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div id="myCanvasContainer" class="widget tagcloud">
+        <canvas width="250" height="250" id="resCanvas" style="width=100%">
+            <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/test/" rel="tag">test</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/" rel="tag">语言基础</a><span class="tag-list-count">1</span></li></ul>
+        </canvas>
+    </div>
+</div>
+
+
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">minifun32</span>
+
+  
+</div>
+
+<!--
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+-->
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+
+  
+
+  
+
+    <style>
+    .copy-btn {
+      display: inline-block;
+      padding: 6px 12px;
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 20px;
+      color: #333;
+      white-space: nowrap;
+      vertical-align: middle;
+      cursor: pointer;
+      background-color: #eee;
+      background-image: linear-gradient(#fcfcfc, #eee);
+      border: 1px solid #d5d5d5;
+      border-radius: 3px;
+      user-select: none;
+      outline: 0;
+    }
+ 
+    .highlight-wrap .copy-btn {
+      transition: opacity .3s ease-in-out;
+      opacity: 0;
+      padding: 2px 6px;
+      position: absolute;
+      right: 4px;
+      top: 8px;
+    }
+ 
+    .highlight-wrap:hover .copy-btn,
+    .highlight-wrap .copy-btn:focus {
+      opacity: 1
+    }
+ 
+    .highlight-wrap {
+      position: relative;
+    }
+  </style>
+ 
+  <script>
+    $('.highlight').each(function (i, e) {
+      var $wrap = $('<div>').addClass('highlight-wrap')
+      $(e).after($wrap)
+      $wrap.append($('<button>').addClass('copy-btn').append('copy').on('click', function (e) {
+        var code = $(this).parent().find('.code').find('.line').map(function (i, e) {
+          return $(e).text()
+        }).toArray().join('\n')
+        var ta = document.createElement('textarea')
+        document.body.appendChild(ta)
+        ta.style.position = 'absolute'
+        ta.style.top = '0px'
+        ta.style.left = '0px'
+        ta.value = code
+        ta.select()
+        ta.focus()
+        var result = document.execCommand('copy')
+        document.body.removeChild(ta)
+ 
+        if(result)$(this).text('copy success')
+        else $(this).text('copy fail')
+ 
+        $(this).blur()
+      })).on('mouseleave', function (e) {
+        var $b = $(this).find('.copy-btn')
+        setTimeout(function () {
+          $b.text('copy')
+        }, 300)
+      }).append(e)
+    })
+  </script>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true}});</script></body>
+</html>
