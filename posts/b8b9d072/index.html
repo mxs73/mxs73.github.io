@@ -1,0 +1,1416 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="C语言基础," />
+
+
+
+
+
+
+
+
+
+<meta name="description" content="程序最终还是为了处理存储中的“0,1”数据，我们把二进制数据封装成各种数据类型方便处理。构造好数据之后，接下来开始使用运算符对数据进行处理。 数据就像是名词，用各种关联词代词形容词等把名词组合起来就形成了一句能够表达意思的语句。语句是C语言程序的基本单位，语句的本质是在做数据处理。 本文内容：  运算符 语句 位操作 函数 简单文本处理">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C基础_数据处理">
+<meta property="og:url" content="http://example.com/posts/b8b9d072/index.html">
+<meta property="og:site_name" content="minifun32">
+<meta property="og:description" content="程序最终还是为了处理存储中的“0,1”数据，我们把二进制数据封装成各种数据类型方便处理。构造好数据之后，接下来开始使用运算符对数据进行处理。 数据就像是名词，用各种关联词代词形容词等把名词组合起来就形成了一句能够表达意思的语句。语句是C语言程序的基本单位，语句的本质是在做数据处理。 本文内容：  运算符 语句 位操作 函数 简单文本处理">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/assets/C_Basics/%E8%BF%90%E7%AE%97%E7%AC%A6%E4%BC%98%E5%85%88%E7%BA%A7.jpeg">
+<meta property="article:published_time" content="2024-09-05T11:04:08.000Z">
+<meta property="article:modified_time" content="2024-09-05T11:04:08.000Z">
+<meta property="article:author" content="minifun32">
+<meta property="article:tag" content="C语言基础">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/assets/C_Basics/%E8%BF%90%E7%AE%97%E7%AC%A6%E4%BC%98%E5%85%88%E7%BA%A7.jpeg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://example.com/posts/b8b9d072/"/>
+
+
+
+
+
+  <title>C基础_数据处理 | minifun32</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">minifun32</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Minimalism, optimism and programming</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/posts/b8b9d072/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="minifun32">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">C基础_数据处理</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2024-09-05T19:04:08+08:00">
+                2024-09-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%AF%AD%E6%B3%95%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index">
+                    <span itemprop="name">语法基础</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>程序最终还是为了处理存储中的“0,1”数据，我们把二进制数据封装成各种数据类型方便处理。构造好数据之后，接下来开始使用运算符对数据进行处理。</p>
+<p><strong>数据就像是名词，用各种关联词代词形容词等把名词组合起来就形成了一句能够表达意思的语句。语句是C语言程序的基本单位，语句的本质是在做数据处理。</strong></p>
+<p>本文内容：</p>
+<ul>
+<li>运算符</li>
+<li>语句</li>
+<li>位操作</li>
+<li>函数</li>
+<li>简单文本处理</li>
+</ul>
+<span id="more"></span>
+<h2 id="1、运算符"><a href="#1、运算符" class="headerlink" title="1、运算符"></a>1、运算符</h2><p><strong>运算符分为这几类</strong></p>
+<p>算术、赋值、比较、逻辑、位、sizeof</p>
+<p><strong>运算符优先级</strong></p>
+<p>单目运算符高于双目运算符</p>
+<p><a target="_blank" rel="noopener" href="https://baike.baidu.com/item/运算符优先级/4752611?fr=ge_ala#3">运算符优先级_百度百科 (baidu.com)</a></p>
+<p><img src="/assets/C_Basics/运算符优先级.jpeg" alt="运算符优先级"></p>
+<h2 id="2、语句"><a href="#2、语句" class="headerlink" title="2、语句"></a>2、语句</h2><h3 id="2-1-循环"><a href="#2-1-循环" class="headerlink" title="2.1 循环"></a><strong>2.1 循环</strong></h3><ul>
+<li>while</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span>(expression)</span><br><span class="line">statement</span><br></pre></td></tr></table></figure>
+<p>如果<code>expression</code>为真，执行<code>ststement</code>，每次循环都是迭代，直到expression为假。</p>
+<ul>
+<li>for</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;n;i++)</span><br><span class="line">    statement</span><br></pre></td></tr></table></figure>
+<ul>
+<li>do while</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">do</span></span><br><span class="line">    statement</span><br><span class="line">    <span class="title function_">while</span><span class="params">(expression)</span>;</span><br></pre></td></tr></table></figure>
+<h3 id="2-2-分支和跳转"><a href="#2-2-分支和跳转" class="headerlink" title="2.2 分支和跳转"></a><strong>2.2 分支和跳转</strong></h3><ul>
+<li>if</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(expression)</span><br><span class="line">    ststement</span><br></pre></td></tr></table></figure>
+<ul>
+<li>if else</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(expression)</span><br><span class="line">    ststement1</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        statement2</span><br></pre></td></tr></table></figure>
+<ul>
+<li>else if</li>
+</ul>
+<p>多重选择</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(expression1)</span><br><span class="line">    statement1</span><br><span class="line"><span class="keyword">else</span> <span class="title function_">if</span><span class="params">(expression2)</span></span><br><span class="line">    statement2</span><br><span class="line"><span class="keyword">else</span> <span class="title function_">if</span><span class="params">(expression3)</span></span><br><span class="line">    statement3</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">    statement4</span><br></pre></td></tr></table></figure>
+<p><code>else</code>匹配前面最近的一个if，换个好理解的写法</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(expression1)</span><br><span class="line">    statement1</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">    <span class="title function_">if</span><span class="params">(expression2)</span></span><br><span class="line">        statement2</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="title function_">if</span><span class="params">(expression3)</span></span><br><span class="line">            statement3</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            statement4</span><br></pre></td></tr></table></figure>
+<ul>
+<li>？ ：</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">expression1 ? expression2 : expression3</span><br></pre></td></tr></table></figure>
+<p>如果<code>expression1</code>为真，则知行<code>expression2</code>，否则执行<code>expression3</code>。</p>
+<ul>
+<li>continue，break，return</li>
+</ul>
+<p><code>continue</code>从语句开始后跳过本次迭代，即循环块中<code>continue</code>后面的语句不执行，直接到下一次循环。</p>
+<p><code>break</code>直接结束循环</p>
+<p><code>return</code>返回函数值，函数结束，返回值的数据类型要和定义函数时的数据类型相同。</p>
+<ul>
+<li>switch</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">switch</span>(expression)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">case</span> val1:</span><br><span class="line">        statement</span><br><span class="line">    <span class="keyword">case</span> val2:</span><br><span class="line">        statement</span><br><span class="line">    <span class="keyword">default</span>:</span><br><span class="line">        statement   </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>其中val是一个常量值，对应expression值的分支执行，然后一直到结尾，可以在statement中写入break实现只有一个语句执行</p>
+<ul>
+<li>goto</li>
+</ul>
+<p>实现任意跳转,可以理解成一个传送门。<code>flag:statement</code>创建一个传送门flag，在当执行<code>goto flag</code>时，程序跳转到statement这里并且执行完statement不会跳转回goto后面，而是接着statement后面执行。</p>
+<h2 id="3、位操作"><a href="#3、位操作" class="headerlink" title="3、位操作"></a>3、位操作</h2><p>在最开始时就提到，数据最终还是以0,1的形式存储在内存中，我们是用寄存器操作这些数据，在嵌入式编程中，就会涉及对寄存器的直接编程，而大型的项目则功能封装地比较厉害，基本不会去涉及位操作。不过，位操作是程序直接沟通硬件的编程方式，所以合理的使用位操作可以极大地提高程序的性能。</p>
+<p>嵌入式系统的寄存器一般是32位的，一般0表示低电平，1表示高电平；</p>
+<p>逻辑上二进制表示真假，1表示真，0表示假，比如在存储玩家是否上线的数据时，可以用一张二进制表存储，1表示今日已上线，0表示未上线，这样可以用很小的内存存放大量玩家的上线数据。</p>
+<p>在密码学上，位操作的使用更加频繁和复杂。</p>
+<p>下面是基本的位操作：</p>
+<p><strong>取反<code>~</code></strong>：0,1互换</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">~<span class="number">0B</span>0001;<span class="comment">//1110</span></span><br></pre></td></tr></table></figure>
+<p><strong>与<code>&amp;</code></strong>：同为1取1，其余取0</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">0B</span>1001 &amp; <span class="number">0B</span>1010<span class="comment">//1000</span></span><br></pre></td></tr></table></figure>
+<p><strong>或<code>|</code></strong>:同时为0取0，其余取1</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">0B</span>1001 | <span class="number">0B</span>1010<span class="comment">//1011</span></span><br></pre></td></tr></table></figure>
+<p><strong>异或<code>^</code></strong>:不同取1，相同取0</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">0B</span>1010 ^ <span class="number">0B</span>1001<span class="comment">//0011</span></span><br></pre></td></tr></table></figure>
+<p><strong>左移<code>&lt;&lt;</code></strong>：往左挪，空位补0</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">0B</span>1000 &lt;&lt; <span class="number">2</span><span class="comment">//等价于2^3 * 2^2=2^5=32 即0B100000</span></span><br></pre></td></tr></table></figure>
+<p><strong>右移<code>&gt;&gt;</code></strong>：往右挪，空位补0</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">0B</span>1000&gt;&gt;<span class="number">2</span><span class="comment">//等价于2^3 / 2^2=2^1=2 即0B10</span></span><br></pre></td></tr></table></figure>
+<p>左移右移常用来处理2的底的幂运算</p>
+<h2 id="4、函数"><a href="#4、函数" class="headerlink" title="4、函数"></a>4、函数</h2><h3 id="4-1-函数概述"><a href="#4-1-函数概述" class="headerlink" title="4.1 函数概述"></a>4.1 函数概述</h3><p><strong>定义</strong></p>
+<p>函数是从英文function翻译过来的，其实function在英文中的意思既是函数，也是功能。<strong>函数是能实现特定功能的一串代码</strong>，或者换句话说，函数是可复用语句的组合，相当于成语，用简短的几个字就能表达复杂的含义。</p>
+<p><strong>好处</strong></p>
+<p>相比于直接把具体代码写到指定为止，调用函数能明显地：</p>
+<ul>
+<li><p>减少代码冗余</p>
+</li>
+<li><p>使程序更加模块化，便于合作开发和修改</p>
+</li>
+</ul>
+<p><strong>组成</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">数据类型 函数名(参数)&#123;</span><br><span class="line">    函数主体</span><br><span class="line">        <span class="keyword">return</span> 返回值;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上述是函数的基本形式</p>
+<ul>
+<li><p>根据数据类型给函数分类</p>
+</li>
+<li><p>参数可以有很多</p>
+</li>
+<li>函数主体实现功能</li>
+<li>返回值要和函数名前面的数据类型一致</li>
+</ul>
+<p>其中不同函数的函数名是否可以相同的问题属于语言标准中对多态的定义，这个先不细究，初学时尽量避免函数名字相同。</p>
+<p><strong>分类</strong></p>
+<ul>
+<li><p>根据定义位置分类：</p>
+<ul>
+<li><strong>库函数（Library Functions）</strong></li>
+<li><strong>用户定义函数（User-Defined Functions）</strong></li>
+</ul>
+</li>
+<li><p><strong>根据参数和返回值分类</strong>：</p>
+<ul>
+<li><strong>无参无返回值函数</strong>：<code>void myFunction(void)</code></li>
+<li><strong>无参有返回值函数</strong>：<code>int getNumber(void)</code></li>
+<li><strong>有参无返回值函数</strong>：<code>void printMessage(char *message)</code></li>
+<li><strong>有参有返回值函数</strong>：<code>int addNumbers(int x, int y)</code></li>
+</ul>
+</li>
+<li><p><strong>根据调用方式分类</strong>：</p>
+<ul>
+<li><strong>递归函数</strong>：这类函数在其定义中调用了自身，通常用于解决可分解为子问题的问题，如阶乘函数、斐波那契数列等。</li>
+<li><strong>非递归函数</strong>：这类函数在其定义中不调用自身，而是通过一系列的语句序列来完成任务。</li>
+</ul>
+</li>
+<li><p><strong>根据作用域分类</strong>：</p>
+<ul>
+<li><strong>全局函数</strong>：在文件范围内可见的函数，可以在整个程序的任何地方调用。</li>
+<li><strong>局部函数</strong>：仅在某个特定的作用域内可见的函数，如在另一个函数内部定义的函数。</li>
+</ul>
+</li>
+<li><p><strong>根据执行流程分类</strong>：</p>
+<ul>
+<li><strong>同步函数</strong>：这类函数在调用后必须等待其完成才能继续执行后续代码。</li>
+<li><strong>异步函数</strong>：这类函数在调用后可以立即返回，后续的操作在后台执行，不阻塞调用者。</li>
+</ul>
+</li>
+</ul>
+<h3 id="4-2-函数递归"><a href="#4-2-函数递归" class="headerlink" title="4.2 函数递归"></a>4.2 函数递归</h3><p>函数调用自己的行为叫递归，比如</p>
+<p>老和尚给小和尚讲：从前有座山，山上有座庙，庙里有个小和尚要老和尚讲故事，老和尚就说：从前有座山……</p>
+<p>递归实际上是循环，演示一下，比如打印n个hello</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="type">void</span> <span class="title function_">print_hello</span><span class="params">(<span class="type">int</span> n)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(n==<span class="number">0</span>)</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;hello\n&quot;</span>);</span><br><span class="line">    n--;</span><br><span class="line">    print_hello(n);</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span>&#123;</span><br><span class="line">    <span class="type">int</span> n=<span class="number">3</span>;</span><br><span class="line">    print_hello(n);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>不要忘记<code>main</code>函数也是一个函数，也可以递归调用。</p>
+<p>递归能够是使代码变得更简介，但这也提高了解读难度，最常见的递归函数有斐波那契数列，二叉树的遍历</p>
+<h3 id="4-3-形参与实参"><a href="#4-3-形参与实参" class="headerlink" title="4.3 形参与实参"></a>4.3 形参与实参</h3><p><a target="_blank" rel="noopener" href="http://c.biancheng.net/view/1853.html">C语言形参和实参的区别（非常详细） (biancheng.net)</a></p>
+<p>形参与实参实际上都是广义上的值传递，实际上在每调用一个函数都会新开了一个栈区，形参名与标识符相同但互不干扰，通过返回值做数据交换，而不是传递实参时函数使用的是被传给函数的这个变量。</p>
+<p>内存中每个字节都有唯一的地址，所以当参数为地址时，即使函数新开了一个栈区，处理的都是地址指向的内存中的数据。我们把这个地址称做实参。</p>
+<p>值传递</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">swap</span><span class="params">(<span class="type">int</span> a,<span class="type">int</span> b)</span>&#123;</span><br><span class="line">a=b-a;</span><br><span class="line">b=b-a;</span><br><span class="line">a=b+a; </span><br><span class="line">&#125;</span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span>&#123;</span><br><span class="line">    <span class="type">int</span> a=<span class="number">1</span>,b=<span class="number">2</span>;</span><br><span class="line">    swap(a,b);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%d,%d&quot;</span>,a,b);<span class="comment">//这时a，b的值并没有交换</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>地址传递</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="type">void</span> <span class="title function_">swap</span><span class="params">(<span class="type">int</span>* a,<span class="type">int</span>* b)</span>&#123;</span><br><span class="line">   *a=*b-*a;</span><br><span class="line">*b=*b-*a;</span><br><span class="line">*a=*b+*a; </span><br><span class="line">&#125;</span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span>&#123;</span><br><span class="line">    <span class="type">int</span> a=<span class="number">1</span>,b=<span class="number">2</span>;</span><br><span class="line">    swap(&amp;a,&amp;b);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%d,%d&quot;</span>,a,b);<span class="comment">//这时a，b的值交换了</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>需要特别注意的是，数组在做参数时会退化为指针，严格来说，数组名作参数时系统会生成一个同名指针，指向数组的第一个值。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">test</span><span class="params">(<span class="type">int</span> arr[])</span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>,<span class="keyword">sizeof</span>(arr));</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%d&quot;</span>,<span class="keyword">sizeof</span>(arr[<span class="number">0</span>]));</span><br><span class="line">    <span class="comment">//上述结果都为4，因为数组作为参数会退化为指针，会丢失精度</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span>&#123;</span><br><span class="line">    <span class="type">int</span> arr[<span class="number">10</span>];</span><br><span class="line">    test(arr);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="4-4-指针函数与函数指针"><a href="#4-4-指针函数与函数指针" class="headerlink" title="4.4 指针函数与函数指针"></a>4.4 指针函数与函数指针</h3><p>如果不用简称，这两个概念很好区分：</p>
+<ul>
+<li>指针函数：返回值为指针类型的函数</li>
+<li>函数指针：指向函数的指针，或者说是数据类型为函数的指针</li>
+</ul>
+<ol>
+<li><p><strong>指针函数</strong>（Function that returns a pointer）:返回类型是指针的函数<br>指针函数是指一个函数，它的返回类型是指针类型。这意味着当这个函数被调用时，它返回一个指向某个内存地址的指针。这个地址通常指向动态分配的内存空间、数组、结构体或其他数据类型。</p>
+</li>
+<li><p><strong>函数指针</strong>（Pointer to a function）:指向函数的指针<br>函数指针是一个变量，它的类型是指向函数的指针。这意味着这个变量可以存储一个函数的地址，从而可以在稍后的时间点调用该函数。函数指针常用于回调函数、排序算法中的比较函数、信号处理等场合，其中需要在运行时动态确定要调用的函数。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="comment">//指针函数</span></span><br><span class="line"><span class="type">char</span>* <span class="title function_">print1</span><span class="params">(<span class="type">char</span>* str)</span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;test1:%s\n&quot;</span>,str);</span><br><span class="line">    <span class="keyword">return</span> str;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">char</span>* <span class="title function_">print2</span><span class="params">(<span class="type">char</span>* str)</span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;test2:%s\n&quot;</span>,str);</span><br><span class="line">    <span class="keyword">return</span> str;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span> <span class="type">const</span> *argv[])</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//函数指针</span></span><br><span class="line">    <span class="type">char</span>* (*print)(<span class="type">char</span>*)=print1;</span><br><span class="line">    (*print)(<span class="string">&quot;hello&quot;</span>);</span><br><span class="line">     print=print2;</span><br><span class="line">    (*print)(<span class="string">&quot;hello&quot;</span>);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">test1:hello</span></span><br><span class="line"><span class="comment">test2:hello</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="4-5-匿名函数"><a href="#4-5-匿名函数" class="headerlink" title="4.5 匿名函数"></a>4.5 匿名函数</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> a=<span class="number">12</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>,a);<span class="comment">//12</span></span><br><span class="line">    <span class="type">int</span> a=<span class="number">123</span>;</span><br><span class="line">    </span><br><span class="line">    &#123;</span><br><span class="line">        <span class="type">int</span> a=<span class="number">1234</span>;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>,a);<span class="comment">//1234</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//匿名内部函数销毁，变量从栈中释放</span></span><br><span class="line">      <span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>,a);<span class="comment">//123</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="4-6-随机函数"><a href="#4-6-随机函数" class="headerlink" title="4.6 随机函数"></a>4.6 随机函数</h3><p>1、获取随机数种子</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;time.h&gt;</span></span></span><br><span class="line">srand(time(<span class="number">0</span>));</span><br></pre></td></tr></table></figure>
+<p>2、生成随机数</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> random_number = min + (<span class="built_in">rand</span>() % (max - min + <span class="number">1</span>));</span><br></pre></td></tr></table></figure>
+<p>3、生成0到99之间的数，取两位小数</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;time.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="comment">// 设置随机数种子</span></span><br><span class="line">    srand((<span class="type">unsigned</span> <span class="type">int</span>) time(<span class="literal">NULL</span>));</span><br><span class="line">    <span class="comment">// 生成0到99之间的随机整数</span></span><br><span class="line">    <span class="type">int</span> integerPart = rand() % <span class="number">100</span>;</span><br><span class="line">    <span class="comment">// 生成0到99之间的随机整数作为小数点后的两位数</span></span><br><span class="line">    <span class="type">int</span> decimalPart = rand() % <span class="number">100</span>;</span><br><span class="line">    <span class="comment">// 将两部分合并成带有两位小数的浮点数</span></span><br><span class="line">    <span class="type">double</span> randomNumber = (<span class="type">double</span>)integerPart + (<span class="type">double</span>)decimalPart / <span class="number">100.0</span>;</span><br><span class="line">    <span class="comment">// 输出结果</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;随机数是: %.2f\n&quot;</span>, randomNumber);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="5、文本处理"><a href="#5、文本处理" class="headerlink" title="5、文本处理"></a>5、文本处理</h2><h3 id="5-1-字符串"><a href="#5-1-字符串" class="headerlink" title="5.1 字符串"></a>5.1 字符串</h3><p> <strong>字符数组</strong></p>
+<p>字符数组是元素为字符的数组</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">char</span> arr[<span class="number">5</span>];</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>,<span class="keyword">sizeof</span>(arr));<span class="comment">//占5个字节</span></span><br><span class="line"><span class="type">char</span> arr[<span class="number">5</span>]=&#123;<span class="string">&#x27;h&#x27;</span>,<span class="string">&#x27;e&#x27;</span>,<span class="string">&#x27;l&#x27;</span>,<span class="string">&#x27;l&#x27;</span>,<span class="string">&#x27;o&#x27;</span>&#125;;</span><br><span class="line"><span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;<span class="keyword">sizeof</span>(arr)/<span class="keyword">sizeof</span>(arr[<span class="number">0</span>]);i++)</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%c&quot;</span>,arr[i]);</span><br><span class="line"><span class="built_in">scanf</span>(<span class="string">&quot;%4s&quot;</span>,arr);</span><br><span class="line">gets(arr);<span class="comment">//可以接收空格，读到换行截至，或者数组结尾</span></span><br><span class="line"><span class="built_in">scanf</span>(<span class="string">&quot;%[^\n]&quot;</span>,arr);<span class="comment">//通过正则接收非换行符字符</span></span><br><span class="line">fget(arr,<span class="keyword">sizeof</span>(arr),<span class="built_in">stdin</span>);<span class="comment">//fget是安全的，它接收了换行符</span></span><br></pre></td></tr></table></figure>
+<p><strong>字符串</strong></p>
+<p>字符串是以<code>\0</code>结尾的字符数组，所以字符串是字符数组的一个特例。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">char</span> arr[<span class="number">6</span>]=&#123;<span class="string">&#x27;h&#x27;</span>,<span class="string">&#x27;e&#x27;</span>,<span class="string">&#x27;l&#x27;</span>,<span class="string">&#x27;l&#x27;</span>,<span class="string">&#x27;o&#x27;</span>&#125;;<span class="comment">//未定义的值默认为0，</span></span><br><span class="line"><span class="type">char</span> arr[<span class="number">7</span>]=&#123;<span class="string">&#x27;h&#x27;</span>,<span class="string">&#x27;e&#x27;</span>,<span class="string">&#x27;l&#x27;</span>,<span class="string">&#x27;l&#x27;</span>,<span class="string">&#x27;o&#x27;</span>,<span class="string">&#x27;\0&#x27;</span>&#125;</span><br><span class="line"><span class="comment">//字符串以\0作为结尾</span></span><br><span class="line"><span class="comment">//&#x27;\0&#x27;的ascii码为0，&#x27;0&#x27;的ascii码为48，所以不能把&#x27;\0&#x27;和&#x27;0&#x27;混为一谈</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;%s&quot;</span>,arr);<span class="comment">//编译器会自动在字符数组后面加&#x27;\0&#x27;，所以上面两个arr都可以正常输出</span></span><br><span class="line"><span class="built_in">puts</span>(<span class="string">&quot;&quot;</span>);<span class="comment">//puts自带换行</span></span><br><span class="line"><span class="built_in">puts</span>(arr);<span class="comment">//读到\0停止，</span></span><br><span class="line"><span class="built_in">fputs</span>(arr,<span class="built_in">stdout</span>);<span class="comment">//可以指定输出位置</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">scanf</span>(<span class="string">&quot;%s&quot;</span>,arr);<span class="comment">//arr是一个地址，不需要取址符</span></span><br></pre></td></tr></table></figure>
+<p><strong>字符串字面值</strong></p>
+<p>用<code>“”</code>引用的字符串常量作为参数时数据类型是<code>const char*</code>，也称为字符串字面值。<code>&quot;hello world&quot;</code>为字符串</p>
+<p>区分<code>&#39;&#39;</code>和<code>&quot; &quot;</code></p>
+<p>‘a’  字符a，占一个字节</p>
+<p>“a”字符串a，占两个字节，隐藏了结束标识’\0’</p>
+<h3 id="5-2-string-h"><a href="#5-2-string-h" class="headerlink" title="5.2 string.h"></a>5.2 <code>string.h</code></h3><p>C语言没有字符串这种数据类型，把字符串看成数组进行处理。</p>
+<p>C语言有专门的<code>string.h</code>库函数对字符串进行处理</p>
+<p><a target="_blank" rel="noopener" href="https://www.runoob.com/cprogramming/c-standard-library-string-h.html">C 标准库 –  | 菜鸟教程 (runoob.com)</a></p>
+<p><strong>长度<code>strlen</code></strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;string.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span> <span class="type">const</span> *argv[])</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">char</span> str[]=<span class="string">&quot;hello&quot;</span>;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;strlen:%d\n&quot;</span>,<span class="built_in">strlen</span>(str));</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;sizeof:%d\n&quot;</span>,<span class="keyword">sizeof</span>(str));</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">strlen:5//不计算&#x27;\0&#x27;</span></span><br><span class="line"><span class="comment">sizeof:6</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+<p><strong>拼接<code>strcat</code> </strong></p>
+<p><code>strcat</code>字符串拼接</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">char</span> str1[<span class="number">20</span>]=<span class="string">&quot;hello&quot;</span>;</span><br><span class="line"><span class="type">char</span> str2[<span class="number">20</span>]=<span class="string">&quot;world&quot;</span>;</span><br><span class="line"><span class="built_in">strcat</span>(str1,str2);</span><br><span class="line"><span class="built_in">puts</span>(str1);<span class="comment">//helloworld</span></span><br></pre></td></tr></table></figure>
+<p><code>strncat</code>指定长度拼接</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">char</span> str1[<span class="number">20</span>]=<span class="string">&quot;hello&quot;</span>;</span><br><span class="line"><span class="type">char</span> str2[<span class="number">20</span>]=<span class="string">&quot;world&quot;</span>;</span><br><span class="line"><span class="built_in">strncat</span>(str1,str2,<span class="number">3</span>);</span><br><span class="line"><span class="built_in">puts</span>(str1);<span class="comment">//hellowor</span></span><br></pre></td></tr></table></figure>
+<p><strong>比较<code>strcmp</code></strong></p>
+<p><code>strcmp</code>比较字符串</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">char</span> str1[<span class="number">10</span>]=<span class="string">&quot;abc&quot;</span>;</span><br><span class="line"><span class="type">char</span> str2[<span class="number">5</span>]=<span class="string">&quot;abc&quot;</span>;</span><br><span class="line"><span class="type">char</span> str3[<span class="number">10</span>]=<span class="string">&quot;abe&quot;</span>;</span><br><span class="line"><span class="type">char</span> str4[<span class="number">10</span>]=<span class="string">&quot;abcc&quot;</span>;</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>,<span class="built_in">strcmp</span>(str1,str2));<span class="comment">//0</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>,<span class="built_in">strcmp</span>(str1,str3));<span class="comment">//-1</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>,<span class="built_in">strcmp</span>(str3,str1));<span class="comment">//1</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>,<span class="built_in">strcmp</span>(str1,str4));<span class="comment">//-1</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>,<span class="built_in">strcmp</span>(<span class="string">&quot;abc&quot;</span>,<span class="string">&quot;abe&quot;</span>));</span><br></pre></td></tr></table></figure>
+<p>不管数组长度，内容相同就输出0.不同的话其实就是比较第一不同的值，按ascii值前面的参数减后面的参数，用1和-1表示结果的正负，有些编译器是直接输出值，而不是转换成固定的1和-1.</p>
+<p>指定比较内容<code>strncmp</code></p>
+<p><strong>拷贝<code>strcpy</code></strong></p>
+<p><code>strcpy</code>复制字符串</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">char</span> str1[<span class="number">20</span>]=<span class="string">&quot;hello&quot;</span>;</span><br><span class="line"><span class="type">char</span> str2[<span class="number">20</span>]=<span class="string">&quot;hi&quot;</span>;</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;%s&quot;</span>,<span class="built_in">strcpy</span>(str1,str2));<span class="comment">//hi</span></span><br></pre></td></tr></table></figure>
+<p>指定复制内容<code>strncpy</code></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/C%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/" rel="tag"># C语言基础</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/posts/8a589a60/" rel="next" title="C基础_数据">
+                <i class="fa fa-chevron-left"></i> C基础_数据
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/posts/b401026d/" rel="prev" title="C基础_内存">
+                C基础_内存 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1%E3%80%81%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">1.</span> <span class="nav-text">1、运算符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2%E3%80%81%E8%AF%AD%E5%8F%A5"><span class="nav-number">2.</span> <span class="nav-text">2、语句</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-%E5%BE%AA%E7%8E%AF"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 循环</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-%E5%88%86%E6%94%AF%E5%92%8C%E8%B7%B3%E8%BD%AC"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 分支和跳转</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3%E3%80%81%E4%BD%8D%E6%93%8D%E4%BD%9C"><span class="nav-number">3.</span> <span class="nav-text">3、位操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4%E3%80%81%E5%87%BD%E6%95%B0"><span class="nav-number">4.</span> <span class="nav-text">4、函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-%E5%87%BD%E6%95%B0%E6%A6%82%E8%BF%B0"><span class="nav-number">4.1.</span> <span class="nav-text">4.1 函数概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-%E5%87%BD%E6%95%B0%E9%80%92%E5%BD%92"><span class="nav-number">4.2.</span> <span class="nav-text">4.2 函数递归</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-%E5%BD%A2%E5%8F%82%E4%B8%8E%E5%AE%9E%E5%8F%82"><span class="nav-number">4.3.</span> <span class="nav-text">4.3 形参与实参</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-4-%E6%8C%87%E9%92%88%E5%87%BD%E6%95%B0%E4%B8%8E%E5%87%BD%E6%95%B0%E6%8C%87%E9%92%88"><span class="nav-number">4.4.</span> <span class="nav-text">4.4 指针函数与函数指针</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-5-%E5%8C%BF%E5%90%8D%E5%87%BD%E6%95%B0"><span class="nav-number">4.5.</span> <span class="nav-text">4.5 匿名函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-6-%E9%9A%8F%E6%9C%BA%E5%87%BD%E6%95%B0"><span class="nav-number">4.6.</span> <span class="nav-text">4.6 随机函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5%E3%80%81%E6%96%87%E6%9C%AC%E5%A4%84%E7%90%86"><span class="nav-number">5.</span> <span class="nav-text">5、文本处理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-1-%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="nav-number">5.1.</span> <span class="nav-text">5.1 字符串</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-string-h"><span class="nav-number">5.2.</span> <span class="nav-text">5.2 string.h</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+      
+
+  <div class="links-of-blogroll motion-element links-of-blogroll-block">
+    <div class="links-of-blogroll-title">
+      <!-- modify icon to fire by szw -->
+      <i class="fa fa-history fa-" aria-hidden="true"></i>
+      近期文章
+    </div>
+    <ul class="links-of-blogroll-list">
+      
+      
+        <li class="recent_posts_li">
+          <a href="/posts/b401026d/" title="C基础_内存" target="_blank">C基础_内存</a>
+        </li>
+      
+        <li class="recent_posts_li">
+          <a href="/posts/b8b9d072/" title="C基础_数据处理" target="_blank">C基础_数据处理</a>
+        </li>
+      
+        <li class="recent_posts_li">
+          <a href="/posts/8a589a60/" title="C基础_数据" target="_blank">C基础_数据</a>
+        </li>
+      
+        <li class="recent_posts_li">
+          <a href="/posts/59f9c032/" title="C基础_入门" target="_blank">C基础_入门</a>
+        </li>
+      
+        <li class="recent_posts_li">
+          <a href="/posts/308bc09b/" title="markdownTest" target="_blank">markdownTest</a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+
+<script type="text/javascript" charset="utf-8" src="/js/tagcloud.js"></script>
+<script type="text/javascript" charset="utf-8" src="/js/tagcanvas.js"></script>
+<div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div id="myCanvasContainer" class="widget tagcloud">
+        <canvas width="250" height="250" id="resCanvas" style="width=100%">
+            <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/" rel="tag">C语言基础</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/test/" rel="tag">test</a><span class="tag-list-count">1</span></li></ul>
+        </canvas>
+    </div>
+</div>
+
+
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">minifun32</span>
+
+  
+</div>
+
+<!--
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+-->
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+
+  
+
+  
+
+    <style>
+    .copy-btn {
+      display: inline-block;
+      padding: 6px 12px;
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 20px;
+      color: #333;
+      white-space: nowrap;
+      vertical-align: middle;
+      cursor: pointer;
+      background-color: #eee;
+      background-image: linear-gradient(#fcfcfc, #eee);
+      border: 1px solid #d5d5d5;
+      border-radius: 3px;
+      user-select: none;
+      outline: 0;
+    }
+ 
+    .highlight-wrap .copy-btn {
+      transition: opacity .3s ease-in-out;
+      opacity: 0;
+      padding: 2px 6px;
+      position: absolute;
+      right: 4px;
+      top: 8px;
+    }
+ 
+    .highlight-wrap:hover .copy-btn,
+    .highlight-wrap .copy-btn:focus {
+      opacity: 1
+    }
+ 
+    .highlight-wrap {
+      position: relative;
+    }
+  </style>
+ 
+  <script>
+    $('.highlight').each(function (i, e) {
+      var $wrap = $('<div>').addClass('highlight-wrap')
+      $(e).after($wrap)
+      $wrap.append($('<button>').addClass('copy-btn').append('copy').on('click', function (e) {
+        var code = $(this).parent().find('.code').find('.line').map(function (i, e) {
+          return $(e).text()
+        }).toArray().join('\n')
+        var ta = document.createElement('textarea')
+        document.body.appendChild(ta)
+        ta.style.position = 'absolute'
+        ta.style.top = '0px'
+        ta.style.left = '0px'
+        ta.value = code
+        ta.select()
+        ta.focus()
+        var result = document.execCommand('copy')
+        document.body.removeChild(ta)
+ 
+        if(result)$(this).text('copy success')
+        else $(this).text('copy fail')
+ 
+        $(this).blur()
+      })).on('mouseleave', function (e) {
+        var $b = $(this).find('.copy-btn')
+        setTimeout(function () {
+          $b.text('copy')
+        }, 300)
+      }).append(e)
+    })
+  </script>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"log":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true}});</script></body>
+</html>
